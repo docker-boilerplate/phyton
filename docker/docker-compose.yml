@@ -1,0 +1,17 @@
+version: '3.8'
+
+networks:
+  network:
+    name: ${COMPOSE_PROJECT_NAME}-docker
+
+services:
+  phyton:
+    build:
+      dockerfile: ./images/python/Dockerfile
+      args:
+        PYTHON_VERSION: ${PYTHON_VERSION}
+        APP_CODE_PATH_CONTAINER: ${APP_CODE_PATH_CONTAINER}
+    container_name: ${COMPOSE_PROJECT_NAME?}-phyton
+    volumes:
+      - ${APP_CODE_PATH_HOST?}:${APP_CODE_PATH_CONTAINER?}
+    restart: ${RESTART:-no}
